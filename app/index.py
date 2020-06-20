@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from app.model.user import User, UserSchema
+from marshmallow import ValidationError
 
 app = Flask(__name__)
 
@@ -13,11 +14,16 @@ incomes = [
 def get_incomes():
     schema = UserSchema(many=True)
     result = schema.dump(incomes)
-    return jsonify(result.data)
+    return jsonify(result)
 
 
 @app.route('/incomes', methods=['POST'])
 def add_income():
-    user = UserSchema().load(request.get_json())
-    incomes.append(user.data)
-    return '', 204
+    try:
+        user = UserSchema().load(request.get_json())
+    except ValidationError as error:
+        print(error)
+        return error.messages, 400
+    else:
+        incomes.append(user.data)
+        return '', 204

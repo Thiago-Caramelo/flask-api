@@ -14,7 +14,7 @@ class User():
 
 
 class UserSchema(Schema):
-    name = fields.Str()
+    name = fields.Str(required=True)
     email = fields.Str()
     created_at = fields.Date()
 
