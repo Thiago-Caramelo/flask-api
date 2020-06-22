@@ -19,5 +19,5 @@ class UserSchema(Schema):
     created_at = fields.Date()
 
     @post_load
-    def make_income(self, data):
+    def make_income(self, data, **kwargs):
         return User(**data)

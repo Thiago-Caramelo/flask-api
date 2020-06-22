@@ -25,5 +25,5 @@ def add_income():
         print(error)
         return error.messages, 400
     else:
-        incomes.append(user.data)
+        incomes.append(user)
         return '', 204
