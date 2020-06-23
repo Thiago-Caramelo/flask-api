@@ -1,23 +1,16 @@
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
 import datetime as dt
+from app import db
 
-from marshmallow import Schema, fields, post_load
 
-
-class User():
-    def __init__(self, name, email):
-        self.name = name
-        self.email = email
-        self.created_at = dt.datetime.now()
+class User(db.Model):
+    id = db.Column(UUID(as_uuid=True), primary_key=True,
+                   default=uuid.uuid4, unique=True, nullable=False)
+    name = db.Column(db.String(200))
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False,
+                           default=dt.datetime.now)
 
     def __repr__(self):
-        return '<Transaction(name={self.description!r})>'.format(self=self)
-
-
-class UserSchema(Schema):
-    name = fields.Str(required=True)
-    email = fields.Str()
-    created_at = fields.Date()
-
-    @post_load
-    def make_income(self, data, **kwargs):
-        return User(**data)
+        return '<User %r>' % self.name
