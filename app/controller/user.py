@@ -19,8 +19,7 @@ bp = Blueprint("user", __name__, url_prefix='/user')
 def index():
     """Show all the posts, most recent first."""
     users = User.query.all()
-    schema = UserSchema(many=True)
-    result = schema.dump(users)
+    result = UserSchema().dump(users, many=True)
     return jsonify(result.data)
 
 
