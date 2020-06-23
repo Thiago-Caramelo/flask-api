@@ -16,9 +16,7 @@
         "SQLALCHEMY_ECHO": "True"
       },
       "args": [
-        "run",
-        "--no-debugger",
-        "--no-reload"
+        "run"
       ],
       "jinja": true
     }
