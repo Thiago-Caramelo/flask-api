@@ -26,6 +26,9 @@ def create_app(test_config=None):
 
     db.init_app(app)
 
+    from app.controller import user
+    app.register_blueprint(user.bp)
+
     @app.route('/db-init')
     def hello():
         init_db()
