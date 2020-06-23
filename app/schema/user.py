@@ -5,6 +5,7 @@ from app.model.user import User
 
 
 class UserSchema(Schema):
+    id = fields.Str()
     name = fields.Str(required=True)
     email = fields.Str(required=True)
     created_at = fields.Date(required=False)
